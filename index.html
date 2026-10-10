@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#e8a100"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Planilla de cargas"><link rel="apple-touch-icon" href="icon-192.png"><link rel="icon" href="icon-192.png"><title>Planilla de cargas domiciliaria y comercial</title>
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--tx:#1b1f24;--mu:#667085;--bd:#d9dde3;--ac:#e8a100;--b1:#2f7de1;--b2:#1a9b5b;--ok:#1a7f4b;--wa:#b42318;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14161a;--card:#1e2128;--tx:#eceef1;--mu:#9aa3b0;--bd:#343a45;--ok:#4cc38a;--wa:#ff8a80}}
+:root[data-theme="dark"]{--bg:#14161a;--card:#1e2128;--tx:#eceef1;--mu:#9aa3b0;--bd:#343a45;--ok:#4cc38a;--wa:#ff8a80}
+*{box-sizing:border-box}html,body{overflow-x:hidden}body{margin:auto;background:var(--bg);color:var(--tx);font:14px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:10px;max-width:760px}
+h1{font-size:18px;margin:2px 0 8px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px;margin-bottom:10px}
+.cc{border-left:5px solid var(--b1)}.gen{border:2px solid var(--ac)}
+input,select,button{font:inherit;font-size:14px;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:7px 5px;min-width:0;width:100%}
+button{cursor:pointer;width:auto}
+.big{width:100%;color:#fff;font-weight:700;border:0;padding:11px;margin:4px 0 8px}
+.b1{background:var(--b1)}.b2{background:var(--b2)}
+.row{display:flex;gap:6px;margin-bottom:6px}.row>*{flex:1 1 0}.row>.x{flex:0 0 auto;padding:7px 11px}.dng{background:#b42318!important;color:#fff!important;border-color:#b42318!important}.name{font-weight:700;flex:3 1 0}
+.it{border-top:1px dashed var(--bd);padding-top:7px;margin-top:7px}.it .nm{margin-bottom:6px}
+.g4{display:grid;grid-template-columns:1fr .8fr .8fr 1.5fr;gap:5px}
+label{font-size:10.5px;color:var(--mu);display:block}.note{color:var(--mu);font-size:12px;line-height:1.4}
+.res{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px;text-align:center}
+.res div{background:var(--bg);border-radius:8px;padding:6px 1px;font-weight:700;font-size:13px}
+.res small{display:block;font-weight:400;color:var(--mu);font-size:10.5px}
+.warn{color:var(--wa);font-size:12.5px;margin-top:5px}
+.sv text{fill:var(--tx);font:12px system-ui,sans-serif}.sv .t2{fill:var(--mu);font-size:10.5px}
+.sv line{stroke:var(--tx);stroke-width:2}.sv rect{fill:var(--card);stroke-width:2.5}
+.caut{color:#a15c00;font-size:12.5px;margin-top:5px}
+:root[data-theme="dark"] .caut{color:#ffd166}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .caut{color:#ffd166}}
+.rec{background:rgba(26,155,91,.13);border-radius:8px;padding:7px 9px;margin-top:8px;font-size:13px}.rec:empty{display:none}
+.sim{border:1px dashed var(--bd);border-radius:10px;padding:8px;margin-top:8px}.st{font-weight:700;font-size:13px}
+.rst{display:none;width:100%;margin-top:6px}.okc{color:var(--ok)}.g2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.tip{font-size:12.5px;margin-top:5px;background:rgba(47,125,225,.13);border-radius:8px;padding:6px 8px}
+#rp{position:fixed;inset:0;background:#fff;z-index:50;overflow:auto;padding-top:env(safe-area-inset-top,0px)}#rp[hidden]{display:none}
+.rbar{position:sticky;top:0;display:flex;gap:6px;padding:8px;background:#e6e6e6;z-index:2;flex-wrap:wrap}.rbar button{flex:1;font-size:13px;color:#fff;border:0;padding:9px 4px}#rpm{width:100%;font-size:12px;color:#444}
+@media print{body>*:not(#rp){display:none!important}#rp{position:static;overflow:visible}.rbar{display:none}}
+.cg{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px;margin-bottom:10px}.cg>label{margin-top:6px}
+.chd{display:flex;align-items:center;gap:8px;margin-bottom:4px}.chd b{flex:1}.chd .ck{display:flex;align-items:center;gap:4px;margin:0;font-size:12px}.chd .ck input{width:auto}
+.ct{width:100%;border-collapse:collapse}.ct td,.ct th{padding:3px;font-size:12px;text-align:left}.cg input:disabled{opacity:.55}
+#cf{position:fixed;inset:0;background:var(--bg);z-index:60;overflow:auto;padding-top:env(safe-area-inset-top,0px)}#cf[hidden]{display:none}
+.cbar{position:sticky;top:0;display:flex;gap:6px;padding:8px;background:var(--card);border-bottom:1px solid var(--bd);z-index:2}.cbar button{flex:1;font-size:13px;color:#fff;border:0;padding:9px 4px}
+.tb{display:flex;gap:6px;margin-bottom:8px;align-items:center}.tb input{font-weight:700;flex:1}
+.hero2{background:linear-gradient(135deg,#e8a100,#f7cf55);color:#1b1f24;border-radius:18px;padding:18px 16px;margin-bottom:12px}.hero2 h1{font-size:22px;line-height:1.2;margin:4px 0 6px}.hero2 p{margin:0 0 10px;font-size:13.5px;color:#3d2b00}.logo{font-size:30px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}.chips i{font-style:normal;background:rgba(255,255,255,.55);border-radius:20px;padding:3px 9px;font-size:11.5px;font-weight:600}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}.mi{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;width:100%;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 12px}
+.mi span{font-size:24px}.mi b{font-size:15px}.mi small{color:var(--mu);font-size:11.5px}.mi.w2{grid-column:1/-1}.mi.pri{background:var(--b1);border-color:var(--b1);color:#fff}.mi.pri small{color:#e3eeff}.mi.cont{border:2px solid var(--ac)}
+.legal{background:rgba(180,35,24,.1);border:1px solid rgba(180,35,24,.35);border-radius:12px;padding:10px;font-size:12px;line-height:1.45;margin-top:4px}
+.pc{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px;margin-bottom:8px}.pt{margin-bottom:8px}.pt b{display:block;font-size:15px}
+details{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;margin-bottom:6px}summary{font-weight:700;cursor:pointer}details p{font-size:13px;margin:6px 0;line-height:1.45}
+.sm{cursor:pointer;font-size:12.5px;margin-bottom:2px}.wr{color:var(--wa)}.cw{color:#d98e00}
+.bt{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:4px}.bt th,.bt td{border:1px solid var(--bd);padding:4px 5px;text-align:left}.bt th{background:var(--bg)}.bh{font-size:13px;margin:10px 0 4px;font-weight:700}
+.seg{display:flex;margin-bottom:8px}.seg button{flex:1;border-radius:0}.seg button:first-child{border-radius:8px 0 0 8px}.seg button:last-child{border-radius:0 8px 8px 0}.seg .on{background:var(--b1);color:#fff;border-color:var(--b1);font-weight:700}
+.mtl{display:flex;gap:8px;align-items:center;margin-bottom:6px}.mtl>div{flex:2}.mtl>input{flex:1}
+</style>
+<style id="rcss"></style></head><body>
+<div id="hm"><div class="hero2"><div class="logo">⚡</div><h1>Planilla de cargas domiciliaria y comercial</h1><p>Calculá cargas por circuito, amperes, térmica y cable, caída de tensión y esquema unifilar. Generá informes para tu cliente.</p><div class="chips"><i>Cargas por circuito</i><i>Amperes (ley de Watt)</i><i>Térmica y cable</i><i>Térmica general + diferencial</i><i>Caída de tensión</i><i>Esquema unifilar</i><i>Informes</i></div></div>
+<div id="hmc"></div>
+<div class="menu"><button class="mi pri w2" onclick="newP()"><span>➕</span><b>Nuevo proyecto</b><small>Empezá un cálculo desde cero</small></button>
+<button class="mi" onclick="go('pl')"><span>📂</span><b>Proyectos guardados</b><small id="hmn"></small></button>
+<button class="mi" onclick="go('mt')"><span>🛒</span><b>Cálculos de materiales</b><small>Listas de compras guardadas</small></button>
+<button class="mi" onclick="cfOpen()"><span>⚙️</span><b>Configuración</b><small>Parámetros y valores normativos</small></button>
+<button class="mi" onclick="go('gd')"><span>📖</span><b>Guía rápida</b><small>Cómo usarla y qué calcula</small></button>
+<button class="mi w2" onclick="go('ab')"><span>ℹ️</span><b>Acerca de</b><small>Versión y alcances</small></button></div>
+<div class="legal"><b>⚠️ Aviso legal.</b> Esta aplicación es una ayuda de cálculo y <b>no reemplaza el criterio profesional</b>, el proyecto de un profesional matriculado ni la reglamentación vigente (AEA 90364 y normas locales). Los valores por defecto son de referencia y deben verificarse con la edición vigente. La responsabilidad por el proyecto y la instalación es de quien la ejecuta.</div></div>
+<div id="pl" hidden><div class="tb"><button onclick="go('hm')">← Menú</button><b style="flex:1">📂 Proyectos guardados</b></div>
+<div class="card"><b>💾 Copia de seguridad</b><div class="row" style="margin-top:6px"><button onclick="expAll()">Exportar todo</button><button onclick="$('imf').click()">Importar archivo</button></div><input type="file" id="imf" accept=".json,application/json" hidden onchange="imp(this)"><div class="note" id="plm">Tus proyectos se guardan solo en este dispositivo. Exportalos para pasarlos a otro celular o tener una copia.</div></div>
+<div id="plc"></div></div>
+<div id="gd" hidden><div class="tb"><button onclick="go('hm')">← Menú</button><b style="flex:1">📖 Guía rápida</b></div>
+<details open><summary>1. Armá los circuitos</summary><p>Creá un circuito por sector (cocina, dormitorio, etc.) con su etiqueta y tipo: iluminación, tomacorrientes o uso específico. Agregá artefactos de la lista o elegí "Personalizable" para cargar los watts a mano.</p></details>
+<details><summary>2. Uso simultáneo</summary><p>Cada artefacto tiene su "Uso": cuánto funciona a la vez. Con "Dimensionar por uso simultáneo" se calcula la corriente promedio; con "Todo junto" se supone todo encendido (100%) y esas casillas se desactivan.</p></details>
+<details><summary>3. Qué calcula</summary><p>Corriente por artefacto y circuito con la ley de Watt (I = P ÷ V·cosφ), térmica y cable recomendados por circuito, térmica general, diferencial y cable del medidor a la térmica general.</p></details>
+<details><summary>4. Simulador</summary><p>Debajo de cada resultado podés probar otra térmica o cable. Los avisos en rojo son problemas; los amarillos, precauciones; los 💡 son sugerencias para resolverlos.</p></details>
+<details><summary>5. Caída de tensión</summary><p>Cargá la distancia al tablero en cada circuito, o usá la tarjeta de caída de tensión. Si no cumple, sugiere más sección, dividir la carga o acortar el recorrido.</p></details>
+<details><summary>6. Informes</summary><p>Desde "Exportar" generás un resumen visual para el cliente o una memoria técnica con esquema unifilar. Podés imprimirlo como PDF o guardar el archivo.</p></details>
+<details><summary>7. Circuitos grandes y lista de materiales</summary><p>Tocá ▾ para contraer un circuito (queda un resumen con el aviso si hay problemas) o usá "Contraer todos". Con ⧉ duplicás un artefacto, útil para varias tomas. Para la lista de compras usá 🛒 Cálculos de materiales en el menú principal: cada cálculo es un archivo propio creado desde un proyecto, con distancias, rollo entero o metro total e implementos. Editarlo no modifica el proyecto ni otros cálculos.</p></details>
+<details><summary>8. Configuración y proyectos comerciales</summary><p>En ⚙️ se ven y editan todos los parámetros (tensiones, límites, secciones mínimas, tablas). Los proyectos "Comercial" usan los mismos criterios: ajustá los parámetros según la reglamentación que corresponda a cada caso.</p></details></div>
+<div id="ab" hidden><div class="tb"><button onclick="go('hm')">← Menú</button><b style="flex:1">ℹ️ Acerca de</b></div>
+<div class="card"><b>Planilla de cargas domiciliaria y comercial</b><div class="note" style="margin-top:6px">Versión 1.0. Planilla de cálculo para instalaciones eléctricas: cargas, corrientes, protecciones, cables y caída de tensión. Funciona sin conexión y no usa cuentas ni nube: los datos quedan en tu dispositivo (usá la copia de seguridad).</div></div>
+<div class="card"><b>Alcances</b><div class="note" style="margin-top:6px">No calcula cortocircuito, selectividad ni coordinación de protecciones, ni factores de corrección por agrupamiento o temperatura. El esquema unifilar es ilustrativo.</div></div>
+<div class="legal"><b>⚠️ Aviso legal.</b> Esta aplicación es una ayuda de cálculo y no reemplaza el criterio profesional, el proyecto de un profesional matriculado ni la reglamentación vigente (AEA 90364 y normas locales). Los valores por defecto son de referencia y deben verificarse con la edición vigente.</div></div>
+<div id="mt" hidden><div class="tb"><button onclick="go('hm')">← Menú</button><b style="flex:1">🛒 Cálculos de materiales</b></div>
+<div class="card"><b>➕ Nuevo cálculo</b><div class="note" style="margin:4px 0 8px">Elegí el proyecto del que sale. Se guarda como un archivo propio: editarlo no modifica el proyecto ni otros cálculos.</div><div class="row"><select id="mt_p"></select><button style="flex:0 0 auto;background:var(--b2);color:#fff;border:0;font-weight:700;padding:8px 14px" onclick="mtNew()">Crear</button></div><div class="note" id="mt_pm"></div></div>
+<div id="mtl"></div></div>
+<div id="me" hidden><div class="tb"><button onclick="go('mt')">← Cálculos</button><input id="me_n" placeholder="Nombre del cálculo" oninput="meN(this.value)"></div>
+<div class="card"><div class="note" id="mt_n"></div><div class="note" id="me_sm"></div><button id="me_sy" style="margin-top:8px;width:100%" onclick="mtSync()">↻ Actualizar desde el proyecto</button></div>
+<div class="card"><b>💾 Guardado y versiones</b><div class="note" id="mt_s" style="margin:4px 0 8px"></div>
+<div class="row"><button onclick="mvSave()">💾 Guardar versión</button><button id="mt_dl" onclick="mtDel()">🗑 Borrar cálculo</button></div>
+<div class="note" id="mt_dm"></div><button class="rst" id="mt_u" onclick="mtUndo()">↩ Deshacer borrado</button><div id="mt_v" style="margin-top:8px"></div></div>
+<div class="card"><b>⚙️ Cómo calcular</b><div class="seg" style="margin-top:8px"><button id="sg_roll" onclick="mtMode('roll')">Por rollo entero</button><button id="sg_m" onclick="mtMode('m')">Por metro total</button></div>
+<div class="g2"><div><label>Desperdicio (%)</label><input id="mt_w" type="number" inputmode="decimal" oninput="mtS()"></div><div><label>Largo del rollo (m)</label><input id="mt_r" type="number" inputmode="decimal" oninput="mtS()"></div>
+<div style="grid-column:1/-1"><label>Distancia medidor → tablero (m), para el cable de entrada</label><input id="mt_e" type="number" inputmode="decimal" oninput="mtS()"></div></div></div>
+<div class="card"><b>📏 Distancia de cada circuito al tablero</b><div class="note">Se usa para los metros de cable de este cálculo.</div><div id="mt_d" style="margin-top:8px"></div></div>
+<div id="mt_out"></div>
+<div class="card"><b>🧰 Implementos</b><div class="note" style="margin-bottom:8px">Sumá a mano tomas, llaves, cajas, caños y lo que necesites.</div><div id="mt_i"></div><div id="mt_h"></div><select id="mt_a" onchange="mtAdd(this.value)" style="margin-top:6px"></select></div>
+<button class="big b2" onclick="rpOpen('m')">🖨 Ver / imprimir lista completa</button></div>
+<div id="ed" hidden>
+<div class="tb"><button onclick="go('hm')">← Menú</button><input id="pn" placeholder="Nombre del proyecto" oninput="pnS(this.value)"><button id="cfbtn" onclick="cfOpen()" style="font-size:15px">⚙️</button></div>
+<div class="card"><div class="row"><div><label>Tipo de proyecto</label><select id="tp" onchange="S.tp=this.value;sv()"><option value="dom">Domiciliaria</option><option value="com">Comercial</option></select></div></div><div class="row">
+<div><label>Suministro</label><select id="sys"><option value="mono">Mono 220 V</option><option value="tri">Tri 380 V</option></select></div>
+
+<div><label>Dimensionar térmica y cable por</label><select id="m"><option value="dem">Uso simultáneo (promedio)</option><option value="max">Todo junto (máximo)</option></select></div></div>
+<div style="margin-bottom:8px"><label id="cml"></label><select id="cm" onchange="S.cm=+this.value;sv();upd()"></select><div class="note">Debe soportar la corriente total de la instalación y la térmica general. No es el cable de los circuitos.</div></div>
+<div class="note" id="mn" style="margin-bottom:6px"></div>
+<div class="note">I = P ÷ (V × cos φ) · trifásico: P ÷ (√3 × V línea × cos φ). cos φ = factor de potencia: 1 en resistivos (estufa, pava); 0,8–0,9 en motores, heladera, aires y electrónica.</div></div>
+<div class="row" style="margin-bottom:8px"><button onclick="colAll(true)">▸ Contraer todos</button><button onclick="colAll(false)">▾ Expandir todos</button></div><div id="app"></div>
+<button class="big b1" onclick="addC()">＋ Agregar circuito</button>
+<div class="card gen" id="gen"></div>
+<div class="card"><b>Esquema unifilar (ilustrativo)</b><div id="dg"></div></div>
+<div class="card"><b>📉 Caída de tensión</b>
+<div style="margin-top:6px"><label>Tomar datos de</label><select id="v_c" onchange="cvPick(this.value)"></select></div>
+<div class="g2"><div><label>Tensión en origen (V)</label><input id="v_src" type="number" inputmode="decimal" value="220" oninput="cvUpd()"></div>
+<div><label>Fases</label><select id="v_p" onchange="$('v_src').value=this.value==='tri'?K.vt:K.vm;cvMan()"><option value="mono">Mono 220 V</option><option value="tri">Tri 380 V</option></select></div>
+<div><label>Corriente (A)</label><input id="v_i" type="number" inputmode="decimal" value="10" oninput="cvMan()"></div>
+<div><label>Distancia (m, un sentido)</label><input id="v_l" type="number" inputmode="decimal" value="20" oninput="cvUpd()"></div>
+<div><label>Sección (mm²)</label><select id="v_s" onchange="cvMan()"></select></div>
+<div><label>cos φ</label><input id="v_f" type="number" step="0.05" min="0.3" max="1" value="1" oninput="cvUpd()"></div>
+<div style="grid-column:1/-1"><label>Límite según el tipo de circuito</label><select id="v_t" onchange="cvMan()"><option value="3">Iluminación: máx. 3 %</option><option value="5">Otros usos: máx. 5 %</option></select></div></div>
+<div id="v_o"></div>
+<div class="note" style="margin-top:6px">Cálculo aproximado (cobre, sin reactancia). La resistividad y los límites se ajustan en ⚙️ Config.: verificá con la AEA vigente. Si elegís un circuito, los datos se actualizan solos; si cambiás corriente, sección, fases o límite, pasa a manual.</div></div>
+<div class="card"><b>📄 Exportar</b>
+<div class="g2"><input id="x_cl" placeholder="Cliente" oninput="xs()"><input id="x_o" placeholder="Obra / dirección" oninput="xs()"><input id="x_e" placeholder="Electricista" oninput="xs()" style="grid-column:1/-1"></div>
+<button class="big b1" style="margin-top:8px" onclick="rpOpen('c')">👤 Para el cliente (simple)</button>
+<button class="big b2" onclick="rpOpen('t')">🛠 Técnico / proyecto (con diagrama)</button>
+<div class="note">Se abre una vista previa: ahí podés imprimir / guardar como PDF o guardar el archivo.</div></div>
+<div class="note">Capacidad de cables: PVC 70 °C en cañería embutida (AEA 90364-7-771). El cable de cada circuito se calcula según su propia térmica (desde 1,5 mm²), sin depender del cable medidor→térmica general. Los watts son de placa; el "uso" de cada artefacto indica cuánto funciona a la vez. Ayuda de cálculo: verificá con la edición vigente de la AEA, caída de tensión y condiciones reales.</div>
+</div>
+<div id="rp" hidden><div class="rbar"><button style="background:#666" onclick="rpClose()">✕ Cerrar</button><button style="background:#1a9b5b" onclick="rpPrint()">🖨 Imprimir / PDF</button><button style="background:#2f7de1" onclick="rpSave()">💾 Guardar archivo</button><div id="rpm"></div></div><div id="rpb" class="rb"></div></div>
+<div id="cf" hidden><div class="cbar"><button style="background:#666" onclick="cfClose()">✕ Cerrar</button><button id="cfr" style="background:#b42318" onclick="cfAll()">↺ Restablecer todo</button></div><div id="cfb" style="padding:10px"></div></div>
+<datalist id="lab"><option>Cocina</option><option>Living</option><option>Comedor</option><option>Dormitorio 1</option><option>Dormitorio 2</option><option>Baño</option><option>Lavadero</option><option>Patio</option><option>Iluminación general</option><option>Tomas generales</option><option>Aire acondicionado</option><option>Termotanque</option></datalist>
+<script>
+const P=[["Lámpara LED 10 W",10,.9],["Lámpara LED 15 W",15,.9],["Lámpara incandescente 60 W",60,1],["Spot dicroica 50 W",50,1],["Ventilador de techo",75,.9],["Ventilador de pie",60,.9],["Heladera",300,.8],["Freezer",250,.8],["TV",120,.9],["PC / notebook",300,.9],["Microondas",1200,.9],["Horno eléctrico",2200,1],["Anafe eléctrico",3000,1],["Lavarropas",2000,.8],["Secarropas",400,.8],["Termotanque eléctrico",1500,1],["Split 2250 fg",900,.9],["Split 3000 fg",1200,.9],["Split 4500 fg",1800,.9],["Split 6000 fg",2400,.9],["Caloventor",2000,1],["Estufa cuarzo",1200,1],["Plancha",1200,1],["Pava eléctrica",2000,1],["Tostadora",800,1],["Licuadora",400,.8],["Secador de pelo",1800,1],["Bomba de agua 1 HP",750,.8],["Portón eléctrico",370,.8],["Toma 10 A (uso general)",2200,1],["Toma 20 A (uso especial)",4400,1],["Motor trifásico 3 kW",3000,.8],["Bomba trifásica 2,2 kW",2200,.8]];
+const IZ2={1.5:15,2.5:21,4:28,6:36,10:50,16:68,25:89,35:111},IZ3={1.5:13,2.5:18,4:24,6:31,10:43,16:59,25:77,35:96};
+const BR=[6,10,16,20,25,32,40,50,63,80,100,125],MIN={ilum:1.5,tomas:2.5,esp:2.5};
+const DEF={vm:220,vt:380,rho:.0214,l3:3,l5:5,near:80,smin:1.5,mi:1.5,mt:2.5,me:2.5,mp:4,br:[...BR],idl:[25,40,63,80,100,125],sens:30,iz2:{...IZ2},iz3:{...IZ3}};
+let K={...DEF,nr:.8};
+function applyCfg(){K={...DEF,...(S.cfg||{})};K.nr=K.near/100;BR.length=0;BR.push(...K.br);MIN.ilum=K.mi;MIN.tomas=K.mt;MIN.esp=K.me;for(const k in IZ2)delete IZ2[k];Object.assign(IZ2,K.iz2);for(const k in IZ3)delete IZ3[k];Object.assign(IZ3,K.iz3)}
+const SIM=[[1,"Siempre 100%"],[.8,"Mucho 80%"],[.6,"Medio 60%"],[.4,"Poco 40%"],[.25,"Rara vez 25%"]];
+const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const simOpts=v=>{v=+v||1;const l=SIM.some(s=>s[0]===v)?SIM:[...SIM,[v,"Otro "+Math.round(v*100)+"%"]];return l.map(s=>`<option value="${s[0]}"${s[0]===v?" selected":""}>${s[1]}</option>`).join("")};
+const pOpts=p=>`<option value=""${!p?" selected":""}>Elegir artefacto…</option><option value="c"${p==="c"?" selected":""}>✏️ Personalizable (carga manual)</option>`+P.map((x,i)=>`<option value="${i}"${p!=null&&p!==""&&String(p)===String(i)?" selected":""}>${x[0]} · ${x[1]} W</option>`).join("");
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4),dc=o=>JSON.parse(JSON.stringify(o)),slug=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/gi,"-").replace(/^-|-$/g,"").toLowerCase();
+function newState(){return{sys:"mono",m:"dem",tp:"dom",c:[{n:"",t:"ilum",v:"mono",i:[{p:"",n:"",w:0,q:1,c:1,f:1}]}],x:{}}}
+let S=newState(),PR=LS.get("pc_pr",[]),CUR=null,pendD=null,MT=LS.get("pc_mt",[]),MC=null;S.cfg=LS.get("pc_cfg",{});
+(function(){const o=LS.get("pc2",null)||LS.get("pc1",null);if(!PR.length&&o&&o.c){const d={...o};S.cfg=o.cfg||S.cfg;delete d.cfg;d.c.forEach(c=>c.i.forEach(e=>{if(e.f==null)e.f=c.k||1}));PR.push({id:uid(),name:"Proyecto anterior",up:Date.now(),data:d});LS.set("pc_pr",PR);LS.set("pc_cfg",S.cfg)}})();
+applyCfg();
+const curP=()=>PR.find(x=>x.id===CUR),curName=()=>{const p=curP();return p?p.name:""};
+function sv(){const p=curP();if(p){const d={...S};delete d.cfg;p.data=d;p.up=Date.now()}LS.set("pc_pr",PR);LS.set("pc_cfg",S.cfg||{})}
+const isTri=c=>S.sys==="tri"&&c.v==="tri",den=t=>t?Math.sqrt(3)*K.vt:K.vm,fmt=n=>n.toFixed(n<10?1:0).replace(".",",");
+const SEC=[1.5,2.5,4,6,10,16,25,35];
+function pick(I,tri,min){const br=BR.find(b=>b>=I);if(!br)return null;const z=tri?IZ3:IZ2;const s=SEC.find(s=>s>=min&&z[s]>=br);return s?{br,s}:null}
+function calc(c){let vm=0,vd=0,pm=0,pd=0;c.i.forEach(e=>{const w=(+e.w||0)*(+e.q||0),v=w/(+e.c||1),f=+e.f||1;pm+=w;pd+=w*f;vm+=v;vd+=v*f});const t=isTri(c),d=den(t);return{pm,pd,vm,vd,im:vm/d,id:vd/d,t,I:(S.m==="max"?vm:vd)/d}}
+const bx=(a,b)=>`<div>${a}<small>${b}</small></div>`;
+function sel(I,tri,min,man,ms){const rec=pick(I,tri,min),z=tri?IZ3:IZ2,br=man||(rec&&rec.br)||0,req=br?SEC.find(s=>s>=min&&z[s]>=br)||null:null;return{rec,br,req,z,ms,cs:ms||req}}
+const brOpts=(rec,man,w)=>`<option value="0"${!man?" selected":""}>${w}${rec?" ("+rec.br+" A)":""}</option>`+BR.map(b=>`<option value="${b}"${b===man?" selected":""}>${b} A</option>`).join("");
+const cabOpts=(req,ms)=>`<option value="0"${!ms?" selected":""}>Automático${req?" ("+req+" mm²)":""}</option>`+SEC.map(s=>`<option value="${s}"${s===ms?" selected":""}>${s} mm²</option>`).join("");
+let LAST=null;
+const wr=(R,Y,T=[])=>R.map(x=>`<div class="warn">⚠ ${x}</div>`).join("")+Y.map(x=>`<div class="caut">⚠ ${x}</div>`).join("")+T.map(x=>`<div class="tip">💡 ${x}</div>`).join("");
+function upd(){let VM=0,VD=0,PM=0,PD=0;const rows=[];
+S.c.forEach((c,ci)=>{const r=calc(c),ch=sel(r.I,r.t,K.smin,c.b,c.sm),R=[],Y=[],T=[],p=r.t?"3P ":"2P ";VM+=r.vm;VD+=r.vd;PM+=r.pm;PD+=r.pd;rows.push({c,r,ch,R,Y,T});
+c.i.forEach((e,ei)=>{const el=$("i"+ci+"_"+ei);if(el){const v=(+e.w||0)*(+e.q||0)/(+e.c||1),dd=den(r.t);el.textContent=`= ${fmt(v/dd)} A máx · ${fmt(v*(+e.f||1)/dd)} A prom.`}});
+$("tc"+ci).innerHTML=brOpts(ch.rec,c.b,"Automática");$("cb"+ci).innerHTML=cabOpts(ch.req,c.sm);$("rs"+ci).style.display=c.b||c.sm?"block":"none";
+$("rc"+ci).innerHTML=ch.rec?`✓ Recomendado: <b>Térmica ${p}${ch.rec.br} A · ${ch.rec.s} mm²</b>`:"";
+$("r"+ci).innerHTML=bx(Math.round(r.pm)+" W","máx "+fmt(r.im)+" A")+bx(Math.round(r.pd)+" W","prom "+fmt(r.id)+" A")+bx(ch.br?p+ch.br+" A":"—","térmica"+(c.b?" (prueba)":""))+bx(ch.cs?ch.cs+" mm²":"—","cable"+(c.sm?" (prueba)":""));
+if(!ch.rec)R.push("Corriente muy alta: dividí el circuito.");
+else{if(ch.br<r.I)R.push(`La térmica de ${ch.br} A es menor que la corriente (${fmt(r.I)} A): va a saltar.`);else if(!ch.req)R.push("No hay cable en tabla para esa térmica.");
+if(ch.ms&&ch.z[ch.ms]<ch.br)R.push(`El cable de ${ch.ms} mm² no soporta la térmica de ${ch.br} A (máx. ${ch.z[ch.ms]} A).`);
+if(!R.length&&r.im>ch.br)Y.push(`Con todo encendido (${fmt(r.im)} A) la térmica puede saltar.`);
+if(c.b&&c.b>ch.rec.br)Y.push(`Térmica mayor a la recomendada: el cable mínimo sube a ${ch.req||"—"} mm² y protege menos.`);
+if(ch.ms&&ch.req&&ch.ms>ch.req)Y.push(`Cable mayor al mínimo (${ch.req} mm²) para esa térmica: válido, pero sobredimensionado.`);
+if(!R.length&&ch.cs&&ch.cs<MIN[c.t])Y.push(`La AEA indica mín. ${MIN[c.t]} mm² en este tipo de circuito: verificá.`)}
+let ok2="";
+if(+c.L>0&&ch.cs&&r.vm>0){const lim=c.t==="ilum"?K.l3:K.l5,s=ch.cs,o=cvCalc(r.I,+c.L,s,Math.min(1,r.pm/r.vm),r.t?K.vt:K.vm,r.t,lim);
+if(!o.ok){R.push(`Caída de tensión ${fmt(o.pct)} % a ${c.L} m (límite ${lim} %).`);cvTips(o,s,+c.L,r.I,lim,r.t).forEach(x=>T.push(x))}
+else{ok2=`<div class="note okc">✔ Caída de tensión ${fmt(o.pct)} % a ${c.L} m (límite ${lim} %)</div>`;if(o.pct>lim*K.nr){const nx=SEC[SEC.indexOf(s)+1];Y.push(`Caída de tensión justa (${fmt(o.pct)} % de ${lim} %)${nx?": con "+nx+" mm² hay más margen":""}.`)}}
+rows[rows.length-1].cv={...o,lim,L:+c.L}}
+$("w"+ci).innerHTML=wr(R,Y,T)+ok2;$("sm"+ci).innerHTML=`${Math.round(r.pm)} W · ${ch.br?p+ch.br+" A":"—"} · ${ch.cs?ch.cs+" mm²":"—"}${R.length?' <b class="wr">✖ problema</b>':Y.length?' <b class="cw">⚠ precaución</b>':""} · tocá para abrir`});
+const tri=S.sys==="tri",d=den(tri),I=(S.m==="max"?VM:VD)/d,g=sel(I,tri,K.smin,S.tg,S.cm),idr=g.br?K.idl.find(x=>x>=g.br):0,R=[],Y=[],p=tri?"4P ":"2P ";
+if(!g.rec)R.push(`La corriente supera ${BR[BR.length-1]} A: requiere proyecto específico.`);
+else{if(g.br>=I&&!g.req)R.push("No hay cable en tabla para esa térmica general.");
+if(S.tg&&S.tg>g.rec.br)Y.push(`Térmica general mayor que la recomendada: el cable mínimo sube a ${g.req||"—"} mm² y protege menos.`);
+if(S.cm&&g.req&&S.cm>g.req)Y.push(`Cable mayor al mínimo (${g.req} mm²) para esa térmica: válido, por ejemplo por caída de tensión.`);
+if(g.cs&&g.cs<K.mp)Y.push(`Cable menor a ${K.mp} mm²: verificá si es válido como línea principal.`)}
+const z=g.z,cz=g.cs?z[g.cs]:0,Imx=VM/d,TG=[],nb=BR.find(b=>b>=I),sec=n=>SEC.find(s=>z[s]>=n);
+const CK=g.rec?[[g.br>=I,`Térmica general ${g.br} A ≥ corriente total ${fmt(I)} A`],[cz>=I,`Cable de entrada ${g.cs||"—"} mm² (admite ${cz} A) ≥ corriente total ${fmt(I)} A`],[cz>=g.br,`Cable de entrada protegido por la térmica general (admite ${cz} A ≥ ${g.br} A)`]]:[[false,`La corriente total (${fmt(I)} A) supera lo que cubre la tabla de térmicas y cables`]];
+if(!g.rec){TG.push(`Repartí la instalación en dos tableros o suministros, ${tri?"":"evaluá trifásico con la distribuidora, "}o reducí la carga simultánea (ajustá el "Uso" de los artefactos).`);TG.push("Consultá a la distribuidora: la potencia contratada, el medidor y la acometida limitan la corriente máxima.")}
+else if(CK.some(c=>!c[0])){
+if(g.br<I)TG.push(`Subí la térmica general a ${nb?nb+" A":"—"} (la mínima normalizada ≥ ${fmt(I)} A)${nb&&sec(nb)?" y el cable de entrada a "+sec(nb)+" mm²":""}.`);
+if(cz<Math.max(I,g.br)){const need=Math.max(I,g.br),s2=sec(need);TG.push(s2?`El cable de entrada debe ser de ${s2} mm² o más (admite ${z[s2]} A) para la térmica elegida y la carga total.`:`Ninguna sección de la tabla admite ${fmt(need)} A: repartí la instalación o reducí la carga.`);
+const lo=[...BR].reverse().find(b=>b<=cz&&b>=I);if(lo&&lo<g.br)TG.push(`Si mantenés ese cable, bajá la térmica general a ${lo} A como máximo.`)}
+TG.push("Si no se puede subir el cable ni la térmica, reducí la carga simultánea: revisá el 'Uso' de cada artefacto o pasá cargas grandes a otro suministro.")}
+const ckH=CK.map(c=>`<div class="${c[0]?"note okc":"warn"}">${c[0]?"✔":"✖"} ${c[1]}</div>`).join("")+(g.rec&&g.br>=I&&Imx>g.br?`<div class="caut">⚠ Con todo encendido a la vez (${fmt(Imx)} A) superaría la térmica general.</div>`:"");
+$("cml").innerHTML=`Cable de entrada (medidor → térmica general): <b>${g.cs||"—"} mm²</b>`;$("cm").innerHTML=cabOpts(g.req,S.cm);
+$("gen").innerHTML=`<b style="color:var(--ac)">▮ Protección general</b> <span class="note">${tri?"trifásica "+K.vt+" V (equilibrada)":"monofásica "+K.vm+" V"}</span><div class="res">${bx(Math.round(PM)+" W","máx "+fmt(VM/d)+" A")}${bx(Math.round(PD)+" W","prom "+fmt(VD/d)+" A")}${bx(g.br?p+g.br+" A":"—","térmica general"+(S.tg?" (prueba)":""))}${bx(g.cs?g.cs+" mm²":"—","cable de entrada"+(S.cm?" (prueba)":""))}</div><div class="note" style="margin-top:6px">El cable de entrada (medidor → térmica general) debe soportar la <b>corriente total</b> de la instalación y la térmica general. Es independiente del cable de cada circuito.</div><div style="margin-top:6px"><b style="font-size:13px">Verificación de la entrada</b>${ckH}</div>${wr(R,Y,TG)}
+<div class="rec">✓ Recomendado (térmica + cable de entrada): <b>Térmica general ${g.rec?p+g.rec.br+" A · "+g.rec.s+" mm²":"—"}</b></div>
+<div class="sim"><div class="st">🧪 Simulador (opcional)</div><div class="note">Elegí otra térmica o cable para ver cómo cambian los resultados y avisos. "Automática" usa la recomendada.</div><div class="row" style="margin-top:6px"><div><label>Térmica general a probar</label><select onchange="S.tg=+this.value;sv();upd()">${brOpts(g.rec,S.tg,"Automática")}</select></div><div><label>Cable de entrada a probar</label><select onchange="S.cm=+this.value;sv();upd()">${cabOpts(g.req,S.cm)}</select></div></div>${S.tg||S.cm?`<button class="rst" style="display:block" onclick="S.tg=0;S.cm=0;sv();upd()">↺ Volver a la recomendada</button>`:""}</div>
+<div style="margin-top:8px">Diferencial (ID): <b>${idr?p+idr+" A · "+K.sens+" mA":"—"}</b></div>`;
+dg(rows,g,idr,tri,g.cs);LAST={rows,g,I,PM,VM,PD,VD,R,Y,idr,tri,d,CK,TG};cvOpts()}
+function dg(...a){$("dg").innerHTML=dgS(...a)}
+function dgS(rows,g,idr,tri,cs){const y0=146,st=46,n=rows.length,H=y0+n*st+4,p=tri?"4P ":"2P ";
+let s=`<svg class="sv" viewBox="0 0 360 ${H}" width="100%"><line x1="45" y1="32" x2="45" y2="48"/><line x1="45" y1="78" x2="45" y2="94"/><line x1="45" y1="124" x2="45" y2="${n?y0+(n-1)*st:130}"/>
+<rect x="5" y="6" width="80" height="26" rx="4" stroke="var(--mu)"/><text x="45" y="23" text-anchor="middle">Medidor</text><text class="t2" x="96" y="23">cable de entrada ${cs||"—"} mm²</text>
+<rect x="5" y="48" width="80" height="30" rx="4" stroke="var(--ac)"/><text x="45" y="67" text-anchor="middle" font-size="11">Térmica ${g.br?g.br+" A":"—"}</text><text x="96" y="60">Térmica general ${p.trim()}</text><text class="t2" x="96" y="73">protege toda la instalación</text>
+<rect x="5" y="94" width="80" height="30" rx="4" stroke="var(--b2)"/><text x="45" y="113" text-anchor="middle">ID ${idr||"—"} A</text><text x="96" y="106">Diferencial ${K.sens} mA</text><text class="t2" x="96" y="119">protege a las personas</text>`;
+rows.forEach((o,i)=>{const y=y0+i*st,r=o.r,k=o.ch;s+=`<line x1="45" y1="${y}" x2="105" y2="${y}"/><rect x="105" y="${y-14}" width="100" height="28" rx="4" stroke="var(--b1)"/><text x="155" y="${y+4}" text-anchor="middle" font-size="11.5">Térmica ${k.br?(r.t?"3P ":"2P ")+k.br+" A":"—"}</text><line x1="205" y1="${y}" x2="216" y2="${y}"/><text x="221" y="${y-2}">${esc(o.c.n||"Circuito "+(i+1)).slice(0,18)}</text><text class="t2" x="221" y="${y+12}">${k.cs?k.cs+" mm²":"—"} · ${fmt(r.I)} A</text>`});
+return s+"</svg>"}
+function cvMan(){$("v_c").value="";cvUpd()}
+function cvPick(v){if(v!==""&&LAST){let I,cs,lim,tri,f;if(v==="g"){I=LAST.I;cs=LAST.g.cs;lim=K.l5;tri=S.sys==="tri";f=LAST.PM/LAST.VM}else{const o=LAST.rows[+v];if(!o)return cvUpd();I=o.r.I;cs=o.ch.cs;lim=o.c.t==="ilum"?K.l3:K.l5;tri=o.r.t;f=o.r.pm/o.r.vm}
+$("v_i").value=+I.toFixed(1);if(cs)$("v_s").value=cs;$("v_t").value=lim;$("v_p").value=tri?"tri":"mono";$("v_src").value=tri?K.vt:K.vm;if(isFinite(f)&&f>0)$("v_f").value=+f.toFixed(2)}cvUpd()}
+function cvOpts(){const el=$("v_c"),cur=el.options.length?el.value:(S.v&&S.v.c)||"";el.innerHTML=`<option value="">Manual (cargo yo los datos)</option><option value="g">Carga general (medidor → térmica general)</option>`+S.c.map((c,i)=>`<option value="${i}">${esc(c.n||"Circuito "+(i+1))}</option>`).join("");el.value=cur;if(el.selectedIndex<0)el.selectedIndex=0;cvPick(el.value)}
+function cvInit(){cvT();lbls();const x=S.x||{};$("x_cl").value=x.cl||"";$("x_o").value=x.o||"";$("x_e").value=x.e||"";$("v_s").innerHTML=SEC.map(s=>`<option value="${s}">${s} mm²</option>`).join("");$("v_s").value="2.5";$("v_src").value=K.vm;$("v_p").value="mono";$("v_i").value="10";$("v_l").value="20";$("v_f").value="1";$("v_t").selectedIndex=0;$("v_c").innerHTML="";if(S.v)for(const[k,id]of[["src","v_src"],["p","v_p"],["i","v_i"],["l","v_l"],["s","v_s"],["f","v_f"],["t","v_t"]])if(S.v[k]!=null&&S.v[k]!=="")$(id).value=S.v[k];if($("v_t").selectedIndex<0)$("v_t").selectedIndex=0}
+function cvCalc(i,L,s,f,V0,tri,lim){const k=tri?Math.sqrt(3):2,z=tri?IZ3:IZ2,q=k*K.rho*i*f,dv=q*L/s,pct=dv/V0*100;let rec=SEC.find(x=>q*L/x/V0*100<=lim&&z[x]>=i),n=0;if(!rec&&i>0)for(let m=2;m<=8&&!n;m++)if(SEC.find(x=>q/m*L/x/V0*100<=lim&&z[x]>=i/m))n=m;return{dv,pct,lmax:q>0?lim/100*V0*s/q:0,imax:L>0?lim/100*V0*s/(k*K.rho*L*f):0,rec,n,ok:pct<=lim,z}}
+function cvTips(o,s,L,i,lim,tri){const t=[];
+if(o.rec)t.push(`Aumentar el cable a ${o.rec} mm² (hoy ${s} mm²): cumple el ${lim} %. La térmica puede quedar igual: el cable mayor no la afecta.`);
+else if(o.n)t.push(`Dividir la carga en ${o.n} circuitos independientes, cada uno con su propia térmica y cable.`);
+if(o.lmax>0&&o.lmax<L)t.push(`Acortar el recorrido: con ${s} mm² la distancia máxima es ~${Math.round(o.lmax)} m (hoy ${L} m). Un tablero seccional más cerca de la carga, alimentado con cable mayor, también ayuda.`);
+if(o.imax>0&&o.imax<i)t.push(`Bajar la corriente a ~${fmt(o.imax)} A (hoy ${fmt(i)} A): pasar los equipos grandes a otro circuito.`);
+if(!tri&&i>25)t.push("Si hay trifásico, repartir la carga entre las tres fases reduce la corriente por conductor.");
+return t}
+function cvUpd(){const g=id=>$(id).value,i=+g("v_i")||0,L=+g("v_l")||0,s=+g("v_s"),f=Math.min(1,+g("v_f")||1),V0=+g("v_src")||K.vm,tri=g("v_p")==="tri",lim=+g("v_t");
+S.v={c:g("v_c"),src:g("v_src"),p:g("v_p"),i:g("v_i"),l:g("v_l"),s:g("v_s"),f:g("v_f"),t:g("v_t")};sv();
+const o=cvCalc(i,L,s,f,V0,tri,lim);let m="";
+if(i<=0||L<=0)m='<div class="note" style="margin-top:6px">Cargá corriente y distancia.</div>';
+else{m=o.ok?(o.pct>lim*K.nr?`<div class="caut">⚠ Cumple pero muy justo (${fmt(o.pct)} % de ${lim} % permitido).</div>`:`<div class="note okc" style="margin-top:6px">✔ Cumple: ${fmt(o.pct)} % ≤ ${lim} %.</div>`):`<div class="warn">⚠ No cumple: ${fmt(o.pct)} % supera el ${lim} % permitido.</div>`;
+if(o.z[s]<i)m+=`<div class="warn">⚠ El cable de ${s} mm² no soporta ${fmt(i)} A (máx. ${o.z[s]} A).</div>`;
+m+=`<div class="rec">✓ Sección mínima que cumple caída y corriente: <b>${o.rec?o.rec+" mm²":"ninguna de la tabla"}</b></div>`;
+if(!o.ok)m+=cvTips(o,s,L,i,lim,tri).map(x=>`<div class="tip">💡 ${x}</div>`).join("");
+else if(o.pct>lim*K.nr){const nx=SEC[SEC.indexOf(s)+1];if(nx)m+=`<div class="tip">💡 Para más margen, usá ${nx} mm².</div>`}}
+$("v_o").innerHTML=`<div class="res">${bx(fmt(o.dv)+" V","caída")}${bx(fmt(o.pct)+" %","de "+lim+" % máx.")}${bx(fmt(V0-o.dv)+" V","llega al final")}${bx(o.lmax>0?Math.round(o.lmax)+" m":"—","distancia máx.")}</div>`+m}
+function lbls(){$("sys").options[0].text="Mono "+K.vm+" V";$("sys").options[1].text="Tri "+K.vt+" V";$("v_p").options[0].text="Mono "+K.vm+" V";$("v_p").options[1].text="Tri "+K.vt+" V"}
+function cvT(){const el=$("v_t"),i=el.selectedIndex;el.innerHTML=`<option value="${K.l3}">Iluminación: máx. ${K.l3} %</option><option value="${K.l5}">Otros usos: máx. ${K.l5} %</option>`;el.selectedIndex=i<0?0:i}
+const UL={},GR=[["g1","Tensiones y conductor",["vm","vt","rho"]],["g2","Caída de tensión",["l3","l5","near"]],["g3","Secciones mínimas",["smin","mi","mt","me","mp"]],["g4","Protecciones",["br","idl","sens"]],["g5","Capacidad de conducción de cables",["iz2","iz3"]]];
+const FL={vm:"Tensión monofásica (V)",vt:"Tensión trifásica (V)",rho:"Resistividad del cobre ρ (Ω·mm²/m)",l3:"Límite de caída, iluminación (%)",l5:"Límite de caída, otros usos (%)",near:"Avisar caída «justa» desde (% del límite)",smin:"Sección mínima de cálculo (mm²)",mi:"Mínimo iluminación (mm²)",mt:"Mínimo tomacorrientes (mm²)",me:"Mínimo uso específico (mm²)",mp:"Avisar si la línea principal es menor a (mm²)",sens:"Sensibilidad del diferencial (mA)"};
+let rsAll=false;
+function cfBtn(){$("cfbtn").textContent="⚙️"+(Object.keys(S.cfg||{}).length?" •":"")}
+function cfOpen(){cfRender();$("cf").hidden=false;$("cf").scrollTop=0}
+function cfClose(){$("cf").hidden=true}
+function cfApply(){applyCfg();sv();if(CUR)render()}
+function cfNum(k,v){const n=+v;if(!(n>0))return cfRender();S.cfg=S.cfg||{};S.cfg[k]=n;cfApply()}
+function cfList(k,v){const a=v.split(/[ ,;]+/).map(Number).filter(x=>x>0).sort((x,y)=>x-y);if(!a.length)return cfRender();S.cfg=S.cfg||{};S.cfg[k]=a;cfApply()}
+function cfIz(w,s,v){const n=+v;if(!(n>=0))return cfRender();S.cfg=S.cfg||{};const k="iz"+w;S.cfg[k]={...K[k],[s]:n};cfApply()}
+function cfReset(g){GR.find(x=>x[0]===g)[2].forEach(k=>{if(S.cfg)delete S.cfg[k]});cfApply();cfRender()}
+function cfAll(){if(!rsAll){rsAll=true;$("cfr").textContent="¿Seguro? Tocá de nuevo";setTimeout(()=>{rsAll=false;$("cfr").textContent="↺ Restablecer todo"},3000);return}rsAll=false;S.cfg={};cfApply();cfRender();$("cfr").textContent="↺ Restablecer todo"}
+function cfRender(){const mod=k=>S.cfg&&S.cfg[k]!=null;
+$("cfb").innerHTML=GR.map(([g,tt,ks])=>{const dis=UL[g]?"":"disabled",fl=k=>`<label>${FL[k]}${mod(k)?" · modificado":""}</label><input ${dis} type="number" step="any" value="${K[k]}" onchange="cfNum('${k}',this.value)">`;let b="";
+if(g==="g4")b=`<label>Térmicas normalizadas (A, separadas por coma)${mod("br")?" · modificado":""}</label><input ${dis} value="${K.br.join(", ")}" onchange="cfList('br',this.value)"><label>Diferenciales normalizados (A)${mod("idl")?" · modificado":""}</label><input ${dis} value="${K.idl.join(", ")}" onchange="cfList('idl',this.value)">`+fl("sens");
+else if(g==="g5")b=`<div class="note">Corriente admisible (A) por sección con 2 conductores cargados (monofásico) y 3 (trifásico). Cañería embutida, PVC 70 °C.${mod("iz2")||mod("iz3")?" · modificado":""}</div><table class="ct"><tr><th>mm²</th><th>2 cargados</th><th>3 cargados</th></tr>${SEC.map(s=>`<tr><td>${s}</td><td><input ${dis} type="number" value="${K.iz2[s]}" onchange="cfIz(2,'${s}',this.value)"></td><td><input ${dis} type="number" value="${K.iz3[s]}" onchange="cfIz(3,'${s}',this.value)"></td></tr>`).join("")}</table>`;
+else b=ks.map(fl).join("");
+return `<div class="cg"><div class="chd"><b>${tt}</b><label class="ck"><input type="checkbox" ${UL[g]?"checked":""} onchange="UL['${g}']=this.checked;cfRender()"> Editar</label><button onclick="cfReset('${g}')">↺</button></div>${b}</div>`}).join("")+'<div class="note">Marcá "Editar" en un grupo para habilitar sus casillas. Los cambios se aplican al instante y se guardan en este navegador. ↺ vuelve el grupo a los valores por defecto (los cargados al crear la app: verificalos contra la AEA vigente).</div>'}
+function tgl(ci){const c=S.c[ci];c.cl=!c.cl;sv();$("cb_"+ci).hidden=c.cl;$("sm"+ci).hidden=!c.cl;$("tg"+ci).textContent=c.cl?"▸":"▾"}
+function colAll(v){S.c.forEach(c=>c.cl=v);sv();render()}
+const fS=s=>String(s).replace(".",","),peS=s=>s<=16?s:s<=35?16:s/2,FO={Fase:0,Neutro:1,Tierra:2},CLI={Fase:"🟤 Fase",Neutro:"🔵 Neutro",Tierra:"🟩 Tierra"};
+const bt=(h,r)=>`<table class="bt"><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${r.map(a=>`<tr>${a.map(x=>`<td>${x}</td>`).join("")}</tr>`).join("")}</table>`;
+const MP=[["Tomacorriente 10 A","u"],["Tomacorriente 20 A","u"],["Llave de 1 punto","u"],["Llave de 2 puntos","u"],["Boca de luz / caja octogonal","u"],["Caja rectangular","u"],["Caja de pase","u"],["Caño corrugado o rígido","m"],["Tapa / bastidor","u"],["Portalámparas / plafón","u"],["Cinta aisladora","u"],["Gabinete / tablero","u"],["Jabalina y conductor de tierra","u"]];
+const fDT=t=>{const d=new Date(t);return d.toLocaleDateString("es-AR")+" "+d.toLocaleTimeString("es-AR",{hour:"2-digit",minute:"2-digit"})};
+const ntomas=s=>s.c.reduce((a,c)=>a+c.i.reduce((b,e)=>b+(/toma/i.test(e.n||"")?+e.q||0:0),0),0);
+function mkSnap(){return{tp:S.tp||"dom",sys:S.sys,tri:LAST.tri,x:dc(S.x||{}),nt:ntomas(S),rows:LAST.rows.map(o=>({n:o.c.n||"",t:o.c.t,tri:o.r.t,br:o.ch.br,cs:o.ch.cs,pm:o.r.pm})),g:{br:LAST.g.br,cs:LAST.g.cs,idr:LAST.idr},L:S.c.map(c=>+c.L||0)}}
+function snapOf(p){const o={S,CUR,LAST},up=p.up;try{CUR=p.id;S=Object.assign(newState(),dc(p.data),{cfg:o.S.cfg||{}});LAST=null;render();return mkSnap()}catch(e){return null}finally{S=o.S;CUR=o.CUR;LAST=o.LAST;p.up=up;LS.set("pc_pr",PR)}}
+function bomH(full){const C=MC;if(!C)return"";const b=C.bm||{},wp=b.w===""||b.w==null?10:+b.w,w=1+wp/100,roll=+b.r>0?+b.r:100,md=C.bmode==="m"?"m":"roll",tri=C.tri,p=tri?"4P ":"2P ",g=C.g,cab={},miss=[],gr={};
+const add=(s,f,m)=>{const k=s+"|"+f;cab[k]=(cab[k]||0)+m};
+C.rows.forEach((o,i)=>{const cs=o.cs,nm=o.n||"Circuito "+(i+1),k=(o.tri?"3P ":"2P ")+(o.br?o.br+" A":"—");(gr[k]=gr[k]||[]).push(esc(nm));
+const Ld=+(C.L||[])[i]||0;if(!cs)return;if(!Ld){miss.push(esc(nm));return}
+if(o.tri)add(cs,"Fase",3*Ld);else{add(cs,"Fase",Ld);add(cs,"Neutro",Ld)}add(peS(cs),"Tierra",Ld)});
+const e=+b.e||0;if(e&&g.cs){add(g.cs,"Fase",tri?3*e:e);add(g.cs,"Neutro",e)}
+const pr=[["🛡️ Térmica general",g.br?p+g.br+" A":"—",1,"Tablero general"],["🧍 Interruptor diferencial",g.idr?p+g.idr+" A · "+K.sens+" mA":"—",1,"Tablero general"]];
+Object.keys(gr).forEach(k=>pr.push(["⚡ Térmica de circuito",k,gr[k].length,gr[k].join(", ")]));
+let tot=0;const cr=Object.keys(cab).map(k=>{const q=k.split("|");return{s:+q[0],f:q[1],m:cab[k]}}).sort((x,y)=>x.s-y.s||FO[x.f]-FO[y.f]).map(x=>{const mt=Math.ceil(x.m*w),n=Math.ceil(mt/roll);tot+=mt;return[CLI[x.f],fS(x.s)+" mm²",Math.round(x.m)+" m",md==="roll"?`<b>${n}</b> ${n===1?"rollo":"rollos"} <span class="m">(${n*roll} m, sobran ${n*roll-mt} m)</span>`:`<b>${mt} m</b>`]});
+const mx=(C.mx||[]).filter(x=>x.n);
+return `<div class="card"><div class="bh" style="margin-top:0">🛡️ Protecciones</div>`+bt(["Elemento","Tipo","Cant.","Circuitos"],pr)+`</div><div class="card"><div class="bh" style="margin-top:0">🔌 Conductores · ${md==="roll"?"por rollo entero":"por metro total"}</div>`+(cr.length?bt(["Conductor","Sección","Necesario","A comprar"+(md==="roll"?" (rollo de "+roll+" m)":" (+"+wp+" %)")],cr)+(md==="m"?`<div class="note m"><b>Total de cable: ${tot} m</b></div>`:""):'<div class="note m">Cargá la distancia de cada circuito (y la del medidor) para estimar los metros.</div>')+(miss.length?`<div class="caut c">⚠ Sin distancia (no entran en los metros): ${miss.join(", ")}.</div>`:"")+
+'<div class="note m" style="margin-top:6px">Metros = distancia al tablero de cada circuito (un solo sentido) más el desperdicio. Circuitos trifásicos: 3 fases + tierra, sin neutro. Tierra: se asumió la misma sección que la fase (hasta 16 mm²); verificá según la AEA. Verificá curva y poder de corte de las térmicas y del diferencial según el proyecto.</div></div>'+(full?`<div class="card"><div class="bh" style="margin-top:0">🧰 Implementos</div>`+(mx.length?bt(["Implemento","Cant.","Unidad"],mx.map(x=>[esc(x.n),x.q||0,esc(x.u||"u")])):'<div class="note m">Sin implementos cargados.</div>')+'<div class="note m" style="margin-top:6px">No incluye jabalina ni el conductor de puesta a tierra principal, salvo que lo agregues como implemento.</div></div>':"")}
+let MTB=null,mtDp=false,mvP=null,mtDelP=null,syP=false;
+const svM=()=>LS.set("pc_mt",MT);
+function mtList(){PR.forEach(p=>{const d=p.data;if(!d.mtMig&&(d.mtT||(d.mx&&d.mx.length))){const sn=snapOf(p);if(sn){MT.push({id:uid(),name:"Materiales · "+p.name,pid:p.id,pn:p.name,up:d.mtT||p.up,...sn,L:sn.rows.map((r,i)=>+(d.c[i]&&d.c[i].L)||0),bm:dc(d.bm||{}),bmode:d.bmode||"roll",mx:dc(d.mx||[]),mv:dc(d.mv||[])});p.data.mtMig=true}}});LS.set("pc_pr",PR);svM();
+const l=[...PR].sort((a,b)=>b.up-a.up);$("mt_p").innerHTML=l.length?'<option value="">Elegí un proyecto…</option>'+l.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join(""):'<option value="">No hay proyectos guardados</option>';$("mt_pm").textContent="";
+const c=[...MT].sort((a,b)=>b.up-a.up);$("mtl").innerHTML=c.length?c.map(x=>`<div class="pc"><div class="pt"><b>${esc(x.name)}</b><span class="note">Proyecto: ${esc(x.pn||"—")} · ${(x.mx||[]).length} implementos · ${x.bmode==="m"?"por metro":"por rollo"} · ${fDT(x.up)}</span></div><div class="row"><button class="big b1" style="margin:0" onclick="mtOpen('${x.id}')">Abrir</button><button onclick="mtDup('${x.id}')">Duplicar</button><button onclick="mtExp('${x.id}')">Exportar</button><button class="${mtDelP===x.id?"dng":""}" onclick="mtDelC('${x.id}')">${mtDelP===x.id?"¿Borrar?":"🗑"}</button></div></div>`).join(""):'<div class="note">Todavía no hay cálculos guardados. Creá uno eligiendo un proyecto.</div>'}
+function mtNew(){const p=PR.find(x=>x.id===$("mt_p").value);if(!p){$("mt_pm").textContent="Elegí un proyecto.";return}
+const sn=snapOf(p);if(!sn){$("mt_pm").textContent="No se pudo leer el proyecto.";return}
+const c={id:uid(),name:"Materiales · "+p.name,pid:p.id,pn:p.name,up:Date.now(),...sn,bm:{},bmode:"roll",mx:[],mv:[]};MT.push(c);svM();mtOpen(c.id)}
+function mtOpen(id){const c=MT.find(x=>x.id===id);if(!c)return;MC=c;MC.L=MC.L||[];MC.mx=MC.mx||[];MC.mv=MC.mv||[];MC.bm=MC.bm||{};MTB=null;go("me");mtF()}
+function mtDup(id){const c=MT.find(x=>x.id===id);if(!c)return;MT.push({...dc(c),id:uid(),name:c.name+" (copia)",up:Date.now()});svM();mtList()}
+function mtDelC(id){if(mtDelP===id){MT=MT.filter(x=>x.id!==id);mtDelP=null;svM();mtList()}else{mtDelP=id;mtList();setTimeout(()=>{if(mtDelP===id){mtDelP=null;mtList()}},3000)}}
+async function mtExp(id){const c=MT.find(x=>x.id===id);if(!c)return;const ok=await saveFile((slug(c.name)||"materiales")+".json",JSON.stringify({app:"planilla-cargas",v:1,projects:[],calcs:[c]}),"application/json");$("mt_pm").textContent=ok?"Archivo exportado.":"No se pudo exportar."}
+function meN(v){MC.name=v;MC.up=Date.now();svM()}
+function mtSync(){const p=PR.find(x=>x.id===MC.pid);if(!p){$("me_sm").textContent="El proyecto original ya no existe.";return}
+if(!syP){syP=true;$("me_sy").textContent="¿Actualizar? Tocá de nuevo";$("me_sm").textContent="Trae los circuitos y protecciones actuales del proyecto. Se conservan las distancias, los implementos y los ajustes.";setTimeout(()=>{if(syP){syP=false;mtF()}},4000);return}
+syP=false;const sn=snapOf(p);if(!sn)return;const old=MC;const L=sn.rows.map((r,i)=>{const j=old.rows.findIndex((q,k)=>q.n===r.n&&(r.n||k===i));return j>=0?old.L[j]||0:(old.rows.length===sn.rows.length?old.L[i]||0:sn.L[i]||0)});
+Object.assign(MC,sn,{L,pn:p.name});mtSv();mtF();$("me_sm").textContent="Actualizado con el estado actual del proyecto."}
+function mtOut(){$("mt_out").innerHTML=bomH()}
+function mtF(){const C=MC;syP=false;$("me_n").value=C.name;$("mt_n").textContent=`Proyecto: ${C.pn||"—"} · ${C.tp==="com"?"Comercial":"Domiciliaria"} · ${C.rows.length} circuitos`;$("me_sm").textContent=PR.some(x=>x.id===C.pid)?"Este cálculo es una copia: editarlo no modifica el proyecto ni otros cálculos.":"El proyecto original ya no existe; el cálculo se conserva igual.";$("me_sy").textContent="↻ Actualizar desde el proyecto";
+const b=C.bm||{};$("mt_w").value=b.w!=null&&b.w!==""?b.w:10;$("mt_r").value=b.r||100;$("mt_e").value=b.e||"";
+mtSg();mtD();mtI();mvR();mtOut();mtBtns();$("mt_s").textContent=C.mtT?"💾 Guardado automáticamente · "+fDT(C.mtT):"Los cambios se guardan solos en este cálculo."}
+function mtSv(){MC.mtT=Date.now();MC.up=MC.mtT;svM();$("mt_s").textContent="💾 Guardado automáticamente · "+fDT(MC.mtT)}
+function mtBtns(){$("mt_dl").textContent="🗑 Borrar cálculo";$("mt_dm").textContent=MTB?"Se borró el contenido del cálculo. Podés rehacerlo desde cero o deshacer el borrado.":"";$("mt_u").style.display=MTB?"block":"none"}
+const mtSnap=()=>({bm:dc(MC.bm||{}),bmode:MC.bmode||"roll",mx:dc(MC.mx||[]),L:[...(MC.L||[])]});
+function mtApply(d){MC.bm=dc(d.bm);MC.bmode=d.bmode;MC.mx=dc(d.mx);MC.L=MC.rows.map((r,i)=>d.L[i]||0)}
+function mtDel(){if(!mtDp){mtDp=true;$("mt_dl").textContent="¿Seguro? Tocá de nuevo";$("mt_dm").textContent="Se borran los ajustes, los implementos y las distancias de este cálculo (el cálculo en sí queda en la lista).";setTimeout(()=>{if(mtDp){mtDp=false;mtBtns()}},4000);return}
+mtDp=false;MTB=mtSnap();MC.bm={};MC.bmode="roll";MC.mx=[];MC.L=MC.rows.map(()=>0);mtSv();mtF()}
+function mtUndo(){if(!MTB)return;mtApply(MTB);MTB=null;mtSv();mtF()}
+function mvSave(){MC.mv=MC.mv||[];MC.mv.unshift({id:uid(),t:Date.now(),d:mtSnap()});MC.mv=MC.mv.slice(0,10);mtSv();mvR()}
+function mvRes(id){const x=(MC.mv||[]).find(v=>v.id===id);if(!x)return;MTB=mtSnap();mtApply(x.d);mtSv();mtF()}
+function mvDel(id){if(mvP===id){MC.mv=(MC.mv||[]).filter(x=>x.id!==id);mvP=null;mtSv();mvR()}else{mvP=id;mvR();setTimeout(()=>{if(mvP===id){mvP=null;mvR()}},3000)}}
+function mvR(){const v=MC.mv||[];$("mt_v").innerHTML=v.length?'<div class="bh" style="margin-top:0">Versiones guardadas</div>'+v.map(x=>`<div class="mtl"><div><b>${fDT(x.t)}</b><div class="note">${x.d.mx.length} implementos · ${x.d.bmode==="m"?"por metro total":"rollo de "+(x.d.bm.r||100)+" m"}</div></div><button onclick="mvRes('${x.id}')">Restaurar</button><button class="x${mvP===x.id?" dng":""}" onclick="mvDel('${x.id}')">${mvP===x.id?"¿Borrar?":"🗑"}</button></div>`).join(""):'<div class="note">Todavía no guardaste versiones. Guardá una para poder volver a ella más adelante.</div>'}
+function mtSg(){const m=MC.bmode==="m"?"m":"roll";$("sg_roll").className=m==="roll"?"on":"";$("sg_m").className=m==="m"?"on":""}
+function mtMode(m){MC.bmode=m;mtSv();mtSg();mtOut()}
+function mtS(){MC.bm={w:$("mt_w").value,r:$("mt_r").value,e:$("mt_e").value};mtSv();mtOut()}
+function mtD(){$("mt_d").innerHTML=MC.rows.map((o,i)=>`<div class="mtl"><div><b>${esc(o.n||"Circuito "+(i+1))}</b><div class="note">${o.cs?o.cs+" mm²":"—"} · ${o.br?o.br+" A":"—"}</div></div><input type="number" inputmode="decimal" placeholder="m" value="${MC.L[i]||""}" oninput="mtL(${i},this.value)"></div>`).join("")}
+function mtL(i,v){MC.L[i]=+v;mtSv();mtOut()}
+function mtI(){const x=MC.mx;
+$("mt_i").innerHTML=x.length?x.map((r,i)=>`<div class="row" style="align-items:center"><input style="flex:3" value="${esc(r.n)}" placeholder="Implemento" oninput="mxS(${i},'n',this.value)"><input style="flex:1" type="number" inputmode="decimal" value="${r.q}" oninput="mxS(${i},'q',this.value)"><select style="flex:1" onchange="mxS(${i},'u',this.value)">${["u","m","rollo","caja"].map(u=>`<option${r.u===u?" selected":""}>${u}</option>`).join("")}</select><button class="x" onclick="mxD(${i})">✕</button></div>`).join(""):'<div class="note">Todavía no agregaste implementos.</div>';
+const nt=MC.nt||0;$("mt_h").innerHTML=nt>0?`<div class="tip">💡 En el proyecto hay ${nt} toma${nt===1?"":"s"} cargada${nt===1?"":"s"}. <button onclick="mtT(${nt})">Agregar como implemento</button></div>`:"";
+$("mt_a").innerHTML='<option value="">＋ Agregar implemento…</option>'+MP.map((m,i)=>`<option value="${i}">${m[0]}</option>`).join("")+'<option value="c">✏️ Otro (escribir)</option>'}
+function mxS(i,k,v){MC.mx[i][k]=k==="q"?+v:v;mtSv()}
+function mxD(i){MC.mx.splice(i,1);mtSv();mtI()}
+function mtAdd(v){if(v==="")return;const m=v==="c"?["","u"]:MP[+v];MC.mx.push({n:m[0],q:1,u:m[1]});mtSv();mtI()}
+function mtT(n){MC.mx.push({n:"Tomacorriente",q:n,u:"u"});mtSv();mtI()}
+function xs(){S.x={cl:$("x_cl").value,o:$("x_o").value,e:$("x_e").value};sv()}
+const RCSS=`.rb{font:14px system-ui,sans-serif;color:#111;background:#fff;padding:14px;max-width:760px;margin:auto}.rb h1{font-size:20px;margin:0 0 4px}.rb h2{font-size:15px;margin:16px 0 6px;border-bottom:2px solid #e8a100;padding-bottom:3px}.rb table{width:100%;border-collapse:collapse;font-size:12.5px}.rb th,.rb td{border:1px solid #ccc;padding:4px 5px;text-align:left}.rb th{background:#f1f1f1}.rb .m{color:#555;font-size:12px}.rb .w{color:#b42318;font-size:13px}.rb .c{color:#a15c00;font-size:13px}.rb .ok{color:#1a7f4b;font-size:13px}.rb .bt th,.rb .bt td{border:1px solid #ccc}.rb .bt th{background:#f1f1f1}.rb .bh{font-size:14px;font-weight:700;margin:14px 0 4px}.rb .rs{width:100%}.rb .rs text{fill:#111;font:12px system-ui,sans-serif}.rb .rs .t2{fill:#555;font-size:10.5px}.rb .rs line{stroke:#111;stroke-width:2}.rb .rs rect{fill:#fff;stroke-width:2.5}.rb h2,.rb table,.rb svg{page-break-inside:avoid}.rb{-webkit-print-color-adjust:exact;print-color-adjust:exact}.rb .hero{background:linear-gradient(135deg,#e8a100,#f7cf55);border-radius:16px;padding:18px 16px;margin-bottom:14px}.rb .hs{font-size:11px;letter-spacing:.12em;font-weight:700;color:#5a3d00}.rb .hero h1{font-size:24px;margin:4px 0}.rb .hm{font-size:12.5px;color:#3d2b00}.rb .kp{display:grid;grid-template-columns:1fr 1fr;gap:8px}.rb .k{background:#fff8e1;border:1px solid #f1d58a;border-radius:12px;padding:12px 6px;text-align:center}.rb .k b{display:block;font-size:19px}.rb .k span{font-size:11.5px;color:#666}.rb .cc{border:1px solid #e1e1e1;border-left:6px solid #e8a100;border-radius:12px;padding:10px 12px;margin:8px 0;page-break-inside:avoid}.rb .cc.l2{border-left-color:#2f7de1}.rb .cc.l3{border-left-color:#1a9b5b}.rb .cn{font-weight:700;font-size:15px}.rb .ch{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.rb .ch i{font-style:normal;background:#f1f3f5;border-radius:20px;padding:4px 11px;font-size:12.5px;font-weight:600}.rb .ex{display:grid;gap:6px}.rb .ex div{background:#f4f7fa;border-radius:10px;padding:9px 11px;font-size:13px}.rb .ft{margin-top:16px;font-size:11.5px;color:#777;text-align:center;border-top:1px solid #e4e4e4;padding-top:10px}`;
+const tb=(h,r)=>`<table><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${r.map(a=>`<tr>${a.map(x=>`<td>${x}</td>`).join("")}</tr>`).join("")}</table>`;
+function rbm(){const C=MC,x=C.x||{},meta=[esc(C.name),C.tp==="com"?"Comercial":"Domiciliaria",x.o&&esc(x.o),x.cl&&"Cliente: "+esc(x.cl),new Date().toLocaleDateString("es-AR"),x.e&&"Electricista: "+esc(x.e)].filter(Boolean).join(" · ");return `<h1>Lista de materiales</h1><div class="m">${meta}</div>`+bomH(true)}
+function rbody(k){if(k==="m")return rbm();const L=LAST,g=L.g,tri=L.tri,p=tri?"4P ":"2P ",x=S.x||{},cl=k==="c",d=L.d,
+meta=[esc(curName()),x.o&&esc(x.o),x.cl&&"Cliente: "+esc(x.cl),new Date().toLocaleDateString("es-AR"),x.e&&"Electricista: "+esc(x.e)].filter(Boolean).join(" · "),
+tp=o=>o.ch.br?(o.r.t?"3P ":"2P ")+o.ch.br+" A":"—",cb=o=>o.ch.cs?o.ch.cs+" mm²":"—",pc=o=>o.r.t?"3P ":"2P ";
+let h=cl?`<div class="hero"><div class="hs">⚡ INSTALACIÓN ELÉCTRICA ${S.tp==="com"?"COMERCIAL":"DOMICILIARIA"}</div><h1>Resumen para el cliente</h1><div class="hm">${meta}</div></div>`:`<h1>${k==="m"?"Lista de materiales":"Memoria de cálculo · planilla de cargas"}</h1><div class="m">${meta}</div>`;
+if(k==="m")return h+bomH(true);
+if(cl){const kw=(L.PM/1000).toFixed(1).replace(".",","),ic=c=>c.t==="ilum"?"💡":c.t==="tomas"?"🔌":"⚡",cc=c=>c.t==="ilum"?"l1":c.t==="tomas"?"l2":"l3";
+h+=`<div class="kp"><div class="k"><b>${kw} kW</b><span>Potencia instalada</span></div><div class="k"><b>${g.br?p+g.br+" A":"—"}</b><span>Térmica general</span></div><div class="k"><b>${L.idr?p+L.idr+" A":"—"}</b><span>Diferencial ${K.sens} mA</span></div><div class="k"><b>${g.cs?g.cs+" mm²":"—"}</b><span>Cable de entrada (medidor)</span></div></div>`;
+h+=`<h2>Circuitos de tu instalación</h2>`+L.rows.map((o,i)=>`<div class="cc ${cc(o.c)}"><div class="cn">${ic(o.c)} ${esc(o.c.n||"Circuito "+(i+1))}</div><div class="m">${esc(o.c.i.map(e=>e.n).filter(Boolean).join(", ")||"—")}</div><div class="ch"><i>${Math.round(o.r.pm)} W</i><i>Térmica ${tp(o)}</i><i>Cable ${cb(o)}</i></div></div>`).join("");
+h+=`<h2>Cómo se protege tu instalación</h2><div class="ex"><div>🛡️ <b>Térmica general:</b> corta toda la instalación ante una sobrecarga o un cortocircuito.</div><div>🧍 <b>Diferencial ${K.sens} mA:</b> protege a las personas ante fugas de corriente.</div><div>🔌 <b>Térmica de cada circuito:</b> cuida el cable y los artefactos de cada sector sin dejar toda la casa sin luz.</div></div>`;
+h+=`<div class="ft">Valores estimados según la reglamentación AEA 90364 para instalaciones domiciliarias · Sujetos a verificación en obra${x.e?"<br>Preparado por "+esc(x.e):""}</div>`}
+else{
+h+=`<h2>Datos generales</h2><p class="m">Suministro ${tri?"trifásico "+K.vt+" V":"monofásico "+K.vm+" V"} · Dimensionado por ${S.m==="max"?"máximo (todo junto)":"uso simultáneo (promedio)"} · I = P ÷ (V·cosφ)${tri?", trifásico: V = √3·"+K.vt:""} · Cables: tabla PVC 70 °C, cañería embutida (Iz ≥ In) · Caída de tensión: ΔV = ${tri?"√3":"2"}·ρ·L·I·cosφ ÷ S, con ρ = ${String(K.rho).replace(".",",")} Ω·mm²/m. Límites de caída: ${K.l3} % iluminación / ${K.l5} % otros usos.${Object.keys(S.cfg||{}).length?" ⚠ Se usaron parámetros modificados respecto de los valores por defecto.":""}</p>`;
+L.rows.forEach((o,i)=>{const c=o.c,r=o.r,dd=den(r.t);
+h+=`<h2>${esc(c.n||"Circuito "+(i+1))} <span class="m">· ${c.t==="ilum"?"Iluminación":c.t==="tomas"?"Tomacorrientes":"Uso específico"} · ${r.t?K.vt+" V trif.":K.vm+" V mono"}</span></h2>`;
+h+=tb(["Artefacto","W","Cant.","cosφ","Uso","A máx","A prom"],c.i.map(e=>{const v=(+e.w||0)*(+e.q||0)/(+e.c||1);return[esc(e.n||"—"),e.w,e.q,e.c,Math.round((+e.f||1)*100)+"%",fmt(v/dd),fmt(v*(+e.f||1)/dd)]}));
+h+=`<p>Potencia: máx ${Math.round(r.pm)} W · prom ${Math.round(r.pd)} W · Corriente: máx ${fmt(r.im)} A · prom ${fmt(r.id)} A · <b>de cálculo ${fmt(r.I)} A</b><br><b>Térmica ${tp(o)} · Cable ${cb(o)}</b>${o.ch.rec?` <span class="m">(recomendado: ${pc(o)}${o.ch.rec.br} A · ${o.ch.rec.s} mm²)</span>`:""}${o.cv?`<br>Caída de tensión a ${o.cv.L} m: ${fmt(o.cv.pct)} % (límite ${o.cv.lim} %)`:""}</p>`;
+o.R.forEach(z=>h+=`<div class="w">⚠ ${z}</div>`);o.Y.forEach(z=>h+=`<div class="c">⚠ ${z}</div>`);o.T.forEach(z=>h+=`<div class="m">💡 ${z}</div>`)});
+h+=`<h2>Protección general</h2>`+tb(["Dato","Valor"],[["Potencia máx / prom",Math.round(L.PM)+" W / "+Math.round(L.PD)+" W"],["Corriente máx / prom",fmt(L.PM>0?L.VM/d:0)+" A / "+fmt(L.VD/d)+" A"],["Térmica general elegida",(g.br?p+g.br+" A":"—")+(g.rec?" (recomendada "+p+g.rec.br+" A · "+g.rec.s+" mm²)":"")],["Cable de entrada (medidor → térmica general)",g.cs?g.cs+" mm²":"—"],["Diferencial",L.idr?p+L.idr+" A · "+K.sens+" mA":"—"]]);
+L.R.forEach(z=>h+=`<div class="w">⚠ ${z}</div>`);L.Y.forEach(z=>h+=`<div class="c">⚠ ${z}</div>`);
+h+=`<h2>Verificación del cable de entrada y la térmica general</h2><p class="m">El cable de entrada (medidor → térmica general) debe soportar la corriente total y la térmica general; es independiente del cable de cada circuito.</p>`+L.CK.map(c=>`<div class="${c[0]?"ok":"w"}">${c[0]?"✔":"✖"} ${c[1]}</div>`).join("");L.TG.forEach(z=>h+=`<div class="m">💡 ${z}</div>`);
+h+=`<h2>Esquema unifilar</h2>`+dgS(L.rows,g,L.idr,tri,g.cs).replace('class="sv"','class="rs"').replace(/var\(--mu\)/g,"#777").replace(/var\(--ac\)/g,"#e8a100").replace(/var\(--b2\)/g,"#1a9b5b").replace(/var\(--b1\)/g,"#2f7de1");
+const vi=+$("v_i").value||0,vl=+$("v_l").value||0;
+if(vi>0&&vl>0){const vs=+$("v_s").value,vt=$("v_p").value==="tri",lim=+$("v_t").value,V0=+$("v_src").value||K.vm,o=cvCalc(vi,vl,vs,Math.min(1,+$("v_f").value||1),V0,vt,lim);
+h+=`<h2>Caída de tensión (cálculo manual)</h2><p>${vt?"Trifásico":"Monofásico"} · ${fmt(vi)} A · ${vl} m · ${vs} mm² · origen ${V0} V<br><b>Caída ${fmt(o.dv)} V (${fmt(o.pct)} %)</b> · límite ${lim} % · ${o.ok?"cumple":"<span class='w'>no cumple</span>"} · llega ${fmt(V0-o.dv)} V · sección mínima: ${o.rec?o.rec+" mm²":"ninguna de la tabla"}</p>`;
+if(!o.ok)cvTips(o,vs,vl,vi,lim,vt).forEach(z=>h+=`<div class="m">💡 ${z}</div>`)}
+h+=`<p class="m">Cálculo de ayuda: verificar con la edición vigente de la AEA 90364 y condiciones reales de instalación.</p>`}
+return h}
+let RK="c";const rm=s=>{$("rpm").textContent=s};
+function rpOpen(k){if(k==="m"?!MC:!LAST)return;RK=k;rm("");$("rpb").innerHTML=rbody(k);$("rp").hidden=false;$("rp").scrollTop=0}
+function rpClose(){$("rp").hidden=true}
+function rpPrint(){try{window.print()}catch(e){rm("No se pudo abrir la impresión: usá Guardar archivo y abrilo desde el navegador.")}}
+async function saveFile(name,data,mime){try{const dl=window.claude&&claude.use?await claude.use("downloads"):null;if(dl){await dl.save({filename:name,data});return true}}catch(e){if(e&&e.code==="declined")return false}
+try{const bl=new Blob([data],{type:mime||"text/plain"}),a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);return true}catch(e){return false}}
+async function rpSave(){const doc=`<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Instalación eléctrica</title><style>${RCSS}@media print{.rb{padding:0}}</style></head><body class="rb">${rbody(RK)}</body></html>`;
+const ok=await saveFile((slug(RK==="m"&&MC?MC.name:curName())||"instalacion")+(RK==="c"?"-cliente":RK==="m"?"-materiales":"-proyecto")+".html",doc,"text/html");rm(ok?"Archivo listo. Abrilo en el navegador y usá Imprimir → Guardar como PDF.":"No se pudo guardar: usá Imprimir / PDF.")}
+const VW=["hm","pl","gd","ab","mt","me","ed"];
+function go(v){VW.forEach(x=>$(x).hidden=x!==v);try{scrollTo(0,0)}catch(e){}if(v==="hm")hmR();if(v==="pl")plR();if(v==="mt")mtList()}
+function pnS(v){const p=curP();if(p)p.name=v;sv()}
+function newP(){const p={id:uid(),name:"Proyecto "+(PR.length+1),up:Date.now(),data:newState()};PR.push(p);LS.set("pc_pr",PR);openP(p.id)}
+function openP(id){const p=PR.find(x=>x.id===id);if(!p)return;CUR=id;S=Object.assign(newState(),dc(p.data),{cfg:S.cfg||{}});LAST=null;go("ed");render()}
+function dupP(id){const p=PR.find(x=>x.id===id);if(!p)return;PR.push({id:uid(),name:p.name+" (copia)",up:Date.now(),data:dc(p.data)});LS.set("pc_pr",PR);plR()}
+function delP(id){if(pendD===id){PR=PR.filter(x=>x.id!==id);if(CUR===id)CUR=null;pendD=null;LS.set("pc_pr",PR);plR()}else{pendD=id;plR();setTimeout(()=>{if(pendD===id){pendD=null;plR()}},3000)}}
+const kwf=w=>(w/1000).toFixed(1).replace(".",","),pw=p=>p.data.c.reduce((a,c)=>a+c.i.reduce((b,e)=>b+(+e.w||0)*(+e.q||0),0),0),dt=p=>new Date(p.up).toLocaleDateString("es-AR");
+function hmR(){const l=[...PR].sort((a,b)=>b.up-a.up);$("hmn").textContent=PR.length?PR.length+(PR.length===1?" proyecto":" proyectos"):"Todavía no hay ninguno";
+$("hmc").innerHTML=l.length?`<div class="menu" style="margin-bottom:10px"><button class="mi cont w2" onclick="openP('${l[0].id}')"><span>▶️</span><b>Continuar: ${esc(l[0].name)}</b><small>${l[0].data.tp==="com"?"Comercial":"Domiciliaria"} · ${kwf(pw(l[0]))} kW · ${dt(l[0])}</small></button></div>`:""}
+function plR(){const l=[...PR].sort((a,b)=>b.up-a.up);$("plc").innerHTML=l.length?l.map(p=>`<div class="pc"><div class="pt"><b>${esc(p.name)}</b><span class="note">${p.data.tp==="com"?"Comercial":"Domiciliaria"} · ${p.data.c.length} circuitos · ${kwf(pw(p))} kW · ${dt(p)}${(()=>{const n=MT.filter(c=>c.pid===p.id).length;return n?" · 🛒 "+n+(n===1?" cálculo":" cálculos"):""})()}</span></div><div class="row"><button class="big b1" style="margin:0" onclick="openP('${p.id}')">Abrir</button><button onclick="dupP('${p.id}')">Duplicar</button><button onclick="expP('${p.id}')">Exportar</button><button class="${pendD===p.id?"dng":""}" onclick="delP('${p.id}')">${pendD===p.id?"¿Borrar?":"🗑"}</button></div></div>`).join(""):'<div class="note">No hay proyectos guardados. Creá uno desde el menú.</div>'}
+async function expFile(arr,name,cs){const ok=await saveFile(name+".json",JSON.stringify({app:"planilla-cargas",v:1,projects:arr,calcs:cs||[]}),"application/json");$("plm").textContent=ok?"Archivo exportado.":"No se pudo exportar."}
+function expP(id){const p=PR.find(x=>x.id===id);if(p)expFile([p],slug(p.name)||"proyecto")}
+function expAll(){expFile(PR,"proyectos-planilla-cargas",MT)}
+function imp(inp){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result),pa=Array.isArray(o.projects)?o.projects:(o&&o.data?[o]:[]),ca=Array.isArray(o.calcs)?o.calcs:[];if(!pa.length&&!ca.length)throw 0;let n=0;
+pa.forEach(p=>{if(p&&p.data&&Array.isArray(p.data.c)){PR.push({id:uid(),name:String(p.name||"Importado").slice(0,80),up:Date.now(),data:dc(p.data)});n++}});
+ca.forEach(c=>{if(c&&Array.isArray(c.rows)){MT.push({...dc(c),id:uid(),up:Date.now(),name:String(c.name||"Importado").slice(0,80)});n++}});
+LS.set("pc_pr",PR);LS.set("pc_mt",MT);plR();$("plm").textContent=n+" elemento(s) importado(s)."}catch(e){$("plm").textContent="El archivo no es válido."}inp.value=""};r.readAsText(f)}
+function render(){lbls();cfBtn();$("tp").value=S.tp||"dom";$("pn").value=curName();$("sys").value=S.sys;$("m").value=S.m;$("mn").textContent=S.m==="max"?"Modo máximo: se supone todo encendido a la vez (100%). El 'Uso simultáneo' de cada artefacto queda desactivado.":"Modo promedio: se usa el 'Uso simultáneo' de cada artefacto para estimar la corriente real.";
+$("app").innerHTML=S.c.map((c,ci)=>`<section class="card cc"><div class="row"><button class="x" id="tg${ci}" onclick="tgl(${ci})">${c.cl?"▸":"▾"}</button><input class="name" list="lab" value="${esc(c.n)}" placeholder="Etiqueta del circuito (ej. Cocina)" oninput="S.c[${ci}].n=this.value;sv();upd()"><button class="x${pend===ci?" dng":""}" onclick="delC(${ci})">${pend===ci?"¿Borrar?":"🗑"}</button></div>
+<div class="note sm" id="sm${ci}" onclick="tgl(${ci})"${c.cl?"":" hidden"}></div><div id="cb_${ci}"${c.cl?" hidden":""}>
+<div class="row"><select onchange="S.c[${ci}].t=this.value;sv();upd()"><option value="ilum"${c.t=="ilum"?" selected":""}>Iluminación</option><option value="tomas"${c.t=="tomas"?" selected":""}>Tomacorrientes</option><option value="esp"${c.t=="esp"?" selected":""}>Uso específico</option></select>${S.sys==="tri"?`<select onchange="S.c[${ci}].v=this.value;sv();upd()"><option value="mono"${c.v!="tri"?" selected":""}>${K.vm} V mono</option><option value="tri"${c.v=="tri"?" selected":""}>${K.vt} V tri</option></select>`:""}<input type="number" inputmode="decimal" placeholder="Dist. al tablero (m)" title="Distancia al tablero (m), opcional: calcula la caída de tensión" value="${c.L||""}" oninput="S.c[${ci}].L=+this.value;sv();upd()"></div>
+${c.i.map((e,ei)=>`<div class="it"><div class="row" style="margin:0 0 6px"><select onchange="pre(${ci},${ei},this.value)">${pOpts(e.p)}</select><button class="x" title="Duplicar artefacto" onclick="S.c[${ci}].i.splice(${ei}+1,0,{...S.c[${ci}].i[${ei}]});sv();render()">⧉</button><button class="x" onclick="S.c[${ci}].i.splice(${ei},1);sv();render()">✕</button></div>${e.p==="c"?`<input class="nm" value="${esc(e.n)}" placeholder="Nombre del artefacto" oninput="S.c[${ci}].i[${ei}].n=this.value;sv()">`:""}
+<div class="g4"><div><label>Watts</label><input type="number" inputmode="decimal" value="${e.w}" oninput="S.c[${ci}].i[${ei}].w=+this.value;sv();upd()"></div><div><label>Cant.</label><input type="number" inputmode="numeric" value="${e.q}" oninput="S.c[${ci}].i[${ei}].q=+this.value;sv();upd()"></div><div><label>cos φ</label><input type="number" step="0.05" min="0.3" max="1" value="${e.c}" oninput="S.c[${ci}].i[${ei}].c=+this.value;sv();upd()"></div><div><label>Uso simultáneo</label><select ${S.m==="max"?"disabled":""} onchange="S.c[${ci}].i[${ei}].f=+this.value;sv();upd()">${simOpts(e.f)}</select></div></div><div class="note" id="i${ci}_${ei}"></div></div>`).join("")}
+<button class="big b2" style="margin-top:10px" onclick="S.c[${ci}].i.push({p:'',n:'',w:0,q:1,c:1,f:1});sv();render()">＋ Agregar artefacto</button>
+<div class="res" id="r${ci}"></div><div id="w${ci}"></div><div class="rec" id="rc${ci}"></div><div class="sim"><div class="st">🧪 Simulador (opcional)</div><div class="note">Elegí otra térmica o cable para ver cómo cambian los resultados y avisos. "Automática" usa la recomendada.</div><div class="row" style="margin-top:6px"><div><label>Térmica a probar</label><select id="tc${ci}" onchange="S.c[${ci}].b=+this.value;sv();upd()"></select></div><div><label>Cable a probar</label><select id="cb${ci}" onchange="S.c[${ci}].sm=+this.value;sv();upd()"></select></div></div><button class="rst" id="rs${ci}" onclick="S.c[${ci}].b=0;S.c[${ci}].sm=0;sv();upd()">↺ Volver a la recomendada</button></div></div></section>`).join("");cvInit();upd()}
+let pend=-1;function delC(ci){if(pend===ci){S.c.splice(ci,1);pend=-1;sv();render()}else{pend=ci;render();setTimeout(()=>{if(pend===ci){pend=-1;render()}},3000)}}
+function pre(ci,ei,v){const e=S.c[ci].i[ei];if(v==="")return;if(v==="c"){e.p="c";e.n=""}else{const p=P[+v];e.p=+v;e.n=p[0];e.w=p[1];e.c=p[2]}sv();render()}
+function addC(){S.c.push({n:"",t:"tomas",v:"mono",i:[{p:"",n:"",w:0,q:1,c:1,f:1}]});sv();render()}
+$("sys").onchange=e=>{S.sys=e.target.value;sv();render()};
+$("m").onchange=e=>{S.m=e.target.value;sv();render()};
+$("rcss").textContent=RCSS;
+hmR();go("hm");
+try{if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js")}catch(e){}
+</script></body></html>
