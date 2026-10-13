@@ -1,19 +1,19 @@
-PLANILLA DE CARGAS DOMICILIARIA Y COMERCIAL - paquete instalable (PWA)
+CALCULADORA DE INSTALACIONES ELÉCTRICAS - paquete instalable (PWA)
 
-Contenido: index.html (la app), manifest.json, sw.js (funcionamiento sin conexión) e íconos.
+Contenido: index.html (la app completa), manifest.json, sw.js (funcionamiento sin conexión) e íconos.
+El archivo principal se llama index.html porque los hostings (Netlify, GitHub Pages, Cloudflare Pages) y Capacitor lo requieren.
+La misma app en un solo archivo, con el nombre final, es calculadora-de-cargas-electricas.html.
 
 PUBLICAR (gratis, ~10 minutos)
-Opción A - Netlify Drop: entrá a app.netlify.com/drop y arrastrá esta carpeta. Te da un link.
-Opción B - GitHub Pages: creá un repositorio, subí estos archivos y activá Pages (Settings > Pages).
-Opción C - Cloudflare Pages: subida directa de la carpeta.
-Importante: tiene que servirse por https (los tres lo hacen) para que se pueda instalar.
+- Netlify Drop: app.netlify.com/drop y arrastrar esta carpeta.
+- GitHub Pages: subir estos archivos a un repositorio y activar Pages.
+- Cloudflare Pages: subida directa de la carpeta.
+Tiene que servirse por https para poder instalarse.
 
 INSTALAR EN EL CELULAR
-Android (Chrome): abrir el link > menú ⋮ > "Instalar aplicación" / "Agregar a pantalla de inicio".
+Android (Chrome): abrir el link > menú ⋮ > "Instalar aplicación".
 iPhone (Safari): abrir el link > Compartir > "Agregar a pantalla de inicio".
 
 NOTAS
-- Los proyectos se guardan en cada dispositivo (sin cuentas ni nube). Usá "Proyectos guardados > Exportar" para copias de seguridad o para pasar proyectos entre equipos.
-- Los datos no se comparten con la versión de claude.ai: son almacenamientos distintos. Exportá e importá si querés pasarlos.
-- Para actualizar la app: reemplazá index.html y cambiá el nombre de la versión en sw.js (const V="planilla-v2").
+- Los proyectos se guardan en cada dispositivo (sin cuentas ni nube). Usá "Proyectos > Exportar" para copias de seguridad.
 - Aviso legal: ayuda de cálculo; no reemplaza el criterio profesional ni la reglamentación vigente (AEA 90364). Los valores por defecto deben verificarse.

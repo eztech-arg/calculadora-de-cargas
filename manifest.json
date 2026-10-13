@@ -1,13 +1,13 @@
 {
-  "name": "Planilla de cargas domiciliaria y comercial",
-  "short_name": "Planilla de cargas",
-  "description": "Cálculo de cargas, térmica, cable y caída de tensión para instalaciones eléctricas",
+  "name": "Calculadora de instalaciones eléctricas",
+  "short_name": "Calc. instalaciones",
+  "description": "Cálculo de cargas, térmica, cable, caída de tensión, materiales y consumo para instalaciones eléctricas",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#14161a",
-  "theme_color": "#e8a100",
+  "background_color": "#0B0F19",
+  "theme_color": "#0B0F19",
   "lang": "es",
   "icons": [
     {
@@ -23,7 +23,7 @@
       "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
